@@ -22,10 +22,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.util.ClassUtils;
 
 /**
- *
  * @author kl
- * @date 2017/12/29
- * Content :klock自动装配
+ * @date 2017/12/29 Content :klock自动装配
  */
 @Configuration
 @ConditionalOnProperty(prefix = KlockConfig.PREFIX, name = "enable", havingValue = "true", matchIfMissing = true)
@@ -34,39 +32,42 @@ import org.springframework.util.ClassUtils;
 @Import({KlockAspectHandler.class})
 public class KlockAutoConfiguration {
 
-    @Autowired
-    private KlockConfig klockConfig;
+  @Autowired
+  private KlockConfig klockConfig;
 
-    @Bean(destroyMethod = "shutdown")
-    @ConditionalOnMissingBean
-    RedissonClient redisson() throws Exception {
-        Config config = new Config();
-        if(klockConfig.getClusterServer()!=null){
-            config.useClusterServers().setPassword(klockConfig.getPassword())
-                    .addNodeAddress(klockConfig.getClusterServer().getNodeAddresses());
-        }else {
-            config.useSingleServer().setAddress(klockConfig.getAddress())
-                    .setDatabase(klockConfig.getDatabase())
-                    .setPassword(klockConfig.getPassword());
-        }
-        Codec codec=(Codec) ClassUtils.forName(klockConfig.getCodec(),ClassUtils.getDefaultClassLoader()).newInstance();
-        config.setCodec(codec);
-        config.setEventLoopGroup(new NioEventLoopGroup());
-        return Redisson.create(config);
+  @Bean(destroyMethod = "shutdown")
+  @ConditionalOnMissingBean
+  RedissonClient redisson() throws Exception {
+    Config config = new Config();
+    if (klockConfig.getClusterServer() != null) {
+      config.useClusterServers().setPassword(klockConfig.getPassword())
+          .addNodeAddress(klockConfig.getClusterServer().getNodeAddresses())
+          .setTimeout(klockConfig.getTimeout());
+    } else {
+      config.useSingleServer().setAddress(klockConfig.getAddress())
+          .setDatabase(klockConfig.getDatabase())
+          .setPassword(klockConfig.getPassword())
+          .setTimeout(klockConfig.getTimeout());
     }
+    Codec codec = (Codec) ClassUtils
+        .forName(klockConfig.getCodec(), ClassUtils.getDefaultClassLoader()).newInstance();
+    config.setCodec(codec);
+    config.setEventLoopGroup(new NioEventLoopGroup());
+    return Redisson.create(config);
+  }
 
-    @Bean
-    public LockInfoProvider lockInfoProvider(){
-        return new LockInfoProvider();
-    }
+  @Bean
+  public LockInfoProvider lockInfoProvider() {
+    return new LockInfoProvider();
+  }
 
-    @Bean
-    public BusinessKeyProvider businessKeyProvider(){
-        return new BusinessKeyProvider();
-    }
+  @Bean
+  public BusinessKeyProvider businessKeyProvider() {
+    return new BusinessKeyProvider();
+  }
 
-    @Bean
-    public LockFactory lockFactory(){
-        return new LockFactory();
-    }
+  @Bean
+  public LockFactory lockFactory() {
+    return new LockFactory();
+  }
 }

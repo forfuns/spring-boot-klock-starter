@@ -6,11 +6,11 @@
 
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-klock-starter</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.4-EINSITANG-SNAPSHOT</version>
     <description>The kLock Project</description>
 
     <properties>
-        <spring-boot.version>1.5.6.RELEASE</spring-boot.version>
+        <spring-boot.version>2.1.18.RELEASE</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -30,9 +30,21 @@
             <organizationUrl>http://www.keking.cn/</organizationUrl>
             <url>http://www.kailing.pub/</url>
         </developer>
+        <developer>
+            <name>forfuns</name>
+            <email>my-tangjianbin@163.com</email>
+            <url>https://github.com/forfuns</url>
+        </developer>
     </developers>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.10.6</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -72,7 +84,7 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-            <version>3.2.0</version>
+            <version>3.11.3</version>
         </dependency>
     </dependencies>
 
