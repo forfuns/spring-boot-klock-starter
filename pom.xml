@@ -129,13 +129,15 @@
     </build>
     <!-- distribute目录 -->
     <distributionManagement>
-        <snapshotRepository>
-            <id>repo</id>
-            <url>http://ops.keking.cn:8081/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>repo</id>
-            <url>http://ops.keking.cn:8081/nexus/content/repositories/releases</url>
+            <id>rdc-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>https://repo.rdc.aliyun.com/repository/113217-release-zBXlXI/</url>
         </repository>
+        <snapshotRepository>
+            <id>rdc-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>https://repo.rdc.aliyun.com/repository/113217-snapshot-OjXpqt/</url>
+        </snapshotRepository>
     </distributionManagement>
 </project>
