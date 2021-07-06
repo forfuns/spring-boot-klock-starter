@@ -26,7 +26,7 @@ import org.springframework.util.ClassUtils;
  * @date 2017/12/29 Content :klock自动装配
  */
 @Configuration
-@ConditionalOnProperty(prefix = KlockConfig.PREFIX, name = "enable", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = KlockConfig.PREFIX, name = "enable", havingValue = "true")
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @EnableConfigurationProperties(KlockConfig.class)
 @Import({KlockAspectHandler.class})
